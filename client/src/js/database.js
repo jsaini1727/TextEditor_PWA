@@ -1,7 +1,7 @@
 import { openDB } from 'idb';
 
 const initdb = async () =>
-  openDB('jate', 1, {
+  openDB('jate_db', 1, {
     upgrade(db) {
       if (db.objectStoreNames.contains('jate')) {
         console.log('jate database already exists');
@@ -12,10 +12,10 @@ const initdb = async () =>
     },
   });
 
-// TODO: Add logic to a method that accepts some content and adds it to the database
+// Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
   try {
-    const textEditDb = await openDB('jate', 1);
+    const textEditDb = await openDB('jate_db', 1);
     const txt = textEditDb.transaction('jate', 'readwrite');
     const storeTxt = txt.objectStore('jate');
     const request = storeTxt.put({
@@ -29,10 +29,10 @@ export const putDb = async (content) => {
   }
 };
 
-// TODO: Add logic for a method that gets all the content from the database
+// Add logic for a method that gets all the content from the database
 export const getDb = async () => {
   try {
-    const textEditDb = await openDB('jate', 1);
+    const textEditDb = await openDB('jate_db', 1);
     const txt = textEditDb.transaction('jate', 'readonly');
     const storeTxt = txt.objectStore('jate');
     const request = storeTxt.get(1);
